@@ -11,8 +11,8 @@ brews:
       owner: mrtimp
       name: homebrew-formulas
     directory: Formula
-    homepage: "https://github.com/mrtimp/terra-profile"
-    description: "Automatically set the AWS_PROFILE for Terraform/Terragrunt based on configuration"
+    homepage: "https://github.com/mrtimp/aws-ec2-ssh"
+    description: "SSH helper for connecting to EC2 instances via EC2 Instance Connect"
     commit_author:
       name: mrtimp
       email: timp@unfuddle.nz
