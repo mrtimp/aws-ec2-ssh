@@ -1,10 +1,12 @@
 version: 2
 
 builds:
-  - goos:
-    - linux
-    - darwin
-    - windows
+  - id: build
+    goos:
+      - linux
+      - darwin
+      - windows
+    binary: ec2-ssh
 
 brews:
   - repository:
