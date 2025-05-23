@@ -90,7 +90,7 @@ func main() {
 
 	// if the instance ID doesn't match i-xxxx or mi-xxx then attempt
 	// to resolve the instance ID from a potential name tag
-	var instanceIDPattern = regexp.MustCompile(`^(i-(?:[0-9a-f]{8}|[0-9a-f]{17})|mi-[0-9a-f]{10})$`)
+	var instanceIDPattern = regexp.MustCompile(`^m?i-[[:xdigit:]]{8,}$`)
 
 	if !instanceIDPattern.Match([]byte(instanceArg)) {
 		resolved, err := resolveNameTagToInstanceID(instanceArg, opts.Profile, opts.Region)
