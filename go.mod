@@ -7,7 +7,6 @@ require (
 	github.com/aws/aws-sdk-go-v2/config v1.29.14
 	github.com/aws/aws-sdk-go-v2/service/ec2 v1.222.0
 	github.com/aws/aws-sdk-go-v2/service/ec2instanceconnect v1.28.2
-	github.com/aws/smithy-go v1.22.3
 	github.com/jessevdk/go-flags v1.6.1
 	github.com/mmmorris1975/ssm-session-client v0.401.1
 	github.com/sirupsen/logrus v1.9.3
@@ -27,6 +26,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.30.1 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sts v1.33.19 // indirect
 	github.com/aws/session-manager-plugin v0.0.0-20221012155945-c523002ee02c // indirect
+	github.com/aws/smithy-go v1.22.3 // indirect
 	github.com/cihub/seelog v0.0.0-20170130134532-f561c5e57575 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/eiannone/keyboard v0.0.0-20220611211555-0d226195f203 // indirect

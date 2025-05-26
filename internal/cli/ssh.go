@@ -76,7 +76,7 @@ func (c *SSHCommand) Execute(args []string) error {
 	}
 
 	proxyCmd := strings.TrimSpace(fmt.Sprintf(
-		"aws-ec2-ssh ssh-proxy --ssh-key %s --username %s --instance-id %s %s %s",
+		"ec2-ssh ssh-proxy --ssh-key %s --username %s --instance-id %s %s %s",
 		publicKeyPath,
 		user,
 		instanceId,

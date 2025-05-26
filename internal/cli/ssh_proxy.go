@@ -20,7 +20,7 @@ type SSHProxyCommand struct {
 	PublicKey  string `short:"k" long:"ssh-key" description:"SSH private key path (default: first found in ~/.ssh/)"`
 }
 
-func (c *SSHProxyCommand) Execute(args []string) {
+func (c *SSHProxyCommand) Execute(args []string) error {
 	cfg := awsutils.LoadAwsDefaultConfig(c.Profile, c.Region)
 
 	log.Debugln("Reading SSH private key: %s", c.PublicKey)
@@ -51,4 +51,6 @@ func (c *SSHProxyCommand) Execute(args []string) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	return nil
 }

@@ -11,9 +11,9 @@ import (
 var GlobalDebug bool
 
 type Root struct {
-	Debug    bool            `short:"d" long:"debug" description:"Enable debug logging"`
-	SSH      SSHProxyCommand `command:"ssh"`
-	SSHProxy SSHProxyCommand `command:"ssh-proxy"`
+	Debug    bool             `short:"d" long:"debug" description:"Enable debug logging"`
+	SSH      *SSHCommand      `command:"ssh"`
+	SSHProxy *SSHProxyCommand `command:"ssh-proxy"`
 }
 
 func Execute() {
