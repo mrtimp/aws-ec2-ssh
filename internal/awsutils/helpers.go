@@ -61,7 +61,7 @@ func ResolveNameTagToInstanceID(name, profile, region string) (string, error) {
 	}
 
 	if len(matches) == 0 {
-		return "", fmt.Errorf("there are no running instance with Name tag: %s", name)
+		return "", fmt.Errorf("there are no running instances with Name tag: %s", name)
 	}
 
 	if len(matches) > 1 {
