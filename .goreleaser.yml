@@ -1,12 +1,13 @@
 version: 2
 
 builds:
-  - id: build
+  - id: ec2-ssh
+    binary: ec2-ssh
+    main: ./cmd/ec2-ssh
     goos:
       - linux
       - darwin
       - windows
-    binary: ec2-ssh
 
 brews:
   - repository:

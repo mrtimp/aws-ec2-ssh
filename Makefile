@@ -6,16 +6,23 @@ GOLDFLAGS += -X main.Version=$(VERSION)
 GOLDFLAGS += -X main.Buildtime=$(BUILDTIME)
 GOFLAGS = -ldflags "$(GOLDFLAGS)"
 
+.PHONY: all deps tidy build build-all release clean
+
+all: deps tidy build
+
 dep:
 	go mod download
 
-build:
-	goreleaser build --clean
+tidy:
+	go mod tidy
 
-# Optionally, you can pass extra GoReleaser build flags via env var:
-# make build GORELEASER_FLAGS="--single-target --id ec2-ssh --os darwin --arch arm64"
-build-custom:
-	goreleaser build --clean $(GORELEASER_FLAGS)
+build:
+	goreleaser build --clean --snapshot
+
+build-local:
+	goreleaser build --clean --snapshot --single-target --id ec2-ssh
+
+build-all: build
 
 optimize:
 	if [ -x /usr/bin/upx ] || [ -x /usr/local/bin/upx ]; then upx --brute ${BINARY_NAME}-*; fi
