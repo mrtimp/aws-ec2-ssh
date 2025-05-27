@@ -16,6 +16,9 @@ dep:
 tidy:
 	go mod tidy
 
+lint:
+	golangci-lint run
+
 build:
 	goreleaser build --clean --snapshot
 
