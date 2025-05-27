@@ -17,6 +17,8 @@ tidy:
 	go mod tidy
 
 lint:
+	golangci-lint config path
+	golangci-lint config verify
 	golangci-lint run
 
 build:
