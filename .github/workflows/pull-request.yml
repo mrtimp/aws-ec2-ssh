@@ -17,6 +17,11 @@ jobs:
         with:
           go-version-file: 'go.mod'
 
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v6
+        with:
+          install-only: true
+
       - name: Build
         run: make build
 
