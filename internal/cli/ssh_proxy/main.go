@@ -23,7 +23,7 @@ type Command struct {
 func (c *Command) Execute(args []string) error {
 	cfg := awsUtils.LoadAwsDefaultConfig(c.Profile, c.Region)
 
-	log.Debugln("Reading SSH private key: %s", c.PublicKey)
+	log.Debugf("Reading SSH private key: %s\n", c.PublicKey)
 
 	publicKey, err := sshUtils.ReadPublicKey(c.PublicKey)
 	if err != nil {
