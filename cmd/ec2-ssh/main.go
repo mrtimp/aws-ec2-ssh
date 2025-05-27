@@ -1,7 +1,7 @@
 package main
 
-import "aws-ec2-ssh/internal/cli"
+import "aws-ec2-ssh/internal/cli/root"
 
 func main() {
-	cli.Execute()
+	root.Execute()
 }

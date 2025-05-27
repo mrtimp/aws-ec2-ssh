@@ -1,20 +1,20 @@
-package cli
+package ssh
 
 import (
+	awsUtils "aws-ec2-ssh/internal/awsutils"
 	"fmt"
 	"os"
 	"os/exec"
 	"regexp"
 	"strings"
 
-	"aws-ec2-ssh/internal/awsutils"
-	"aws-ec2-ssh/internal/sshutils"
+	sshUtils "aws-ec2-ssh/internal/sshutils"
 	log "github.com/sirupsen/logrus"
 )
 
 var defaultUser = "ec2-user"
 
-type SSHCommand struct {
+type Command struct {
 	Profile   string `short:"p" long:"profile" description:"AWS CLI profile to use" env:"AWS_PROFILE"`
 	Region    string `short:"r" long:"region" description:"AWS region (defaults to profile region)" env:"AWS_REGION"`
 	PublicKey string `short:"k" long:"key" description:"SSH private key path (default: first found in ~/.ssh/)"`
@@ -25,13 +25,13 @@ type SSHCommand struct {
 	} `positional-args:"yes" required:"yes"`
 }
 
-func (c *SSHCommand) Execute(args []string) error {
+func (c *Command) Execute(args []string) error {
 	var err error
 
 	// find the users key in descending order if they didn't provide it
 	publicKey := c.PublicKey
 	if publicKey == "" {
-		publicKey, err = sshutils.FindDefaultSSHPrivateKey()
+		publicKey, err = sshUtils.FindDefaultSSHPrivateKey()
 		if err != nil {
 			log.Fatalf("SSH private key was not found in ~/.ssh (tried id_rsa, id_ecdsa, id_ecdsa_sk, id_ed25519, id_ed25519_sk)\n")
 		}
@@ -42,10 +42,10 @@ func (c *SSHCommand) Execute(args []string) error {
 	user := defaultUser
 	instanceArg := c.Args.Instance
 	instanceId := instanceArg
-	publicKey = sshutils.ExpandTilde(publicKey)
+	publicKey = sshUtils.ExpandTilde(publicKey)
 
-	log.Debugf("Parsed flags: profile=%s, region=%s, user=%s, publicKey=%s, sshPort=%d, debug=%v, instanceArg=%s",
-		c.Profile, c.Region, user, publicKey, c.Port, GlobalDebug, instanceArg)
+	log.Debugf("Parsed flags: profile=%s, region=%s, user=%s, publicKey=%s, sshPort=%d, instanceArg=%s",
+		c.Profile, c.Region, user, publicKey, c.Port, instanceArg)
 
 	// split user @ instance
 	if strings.Contains(instanceArg, "@") {
@@ -61,7 +61,7 @@ func (c *SSHCommand) Execute(args []string) error {
 	var instanceIDPattern = regexp.MustCompile(`^m?i-[[:xdigit:]]{8,}$`)
 
 	if !instanceIDPattern.Match([]byte(instanceId)) {
-		resolved, err := awsutils.ResolveNameTagToInstanceID(instanceId, c.Profile, c.Region)
+		resolved, err := awsUtils.ResolveNameTagToInstanceID(instanceId, c.Profile, c.Region)
 		if err != nil {
 			log.Fatalf("Error: %v\n", err)
 		}

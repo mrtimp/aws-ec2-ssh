@@ -1,19 +1,19 @@
-package cli
+package root
 
 import (
 	"errors"
 	"os"
 
+	"aws-ec2-ssh/internal/cli/ssh"
+	sshProxy "aws-ec2-ssh/internal/cli/ssh_proxy"
 	"github.com/jessevdk/go-flags"
 	log "github.com/sirupsen/logrus"
 )
 
-var GlobalDebug bool
-
 type Root struct {
-	Debug    bool             `short:"d" long:"debug" description:"Enable debug logging"`
-	SSH      *SSHCommand      `command:"ssh"`
-	SSHProxy *SSHProxyCommand `command:"ssh-proxy"`
+	Debug    bool              `short:"d" long:"debug" description:"Enable debug logging"`
+	SSH      *ssh.Command      `command:"ssh"`
+	SSHProxy *sshProxy.Command `command:"ssh-proxy"`
 }
 
 func Execute() {
@@ -21,8 +21,6 @@ func Execute() {
 	parser := flags.NewParser(&root, flags.Default)
 
 	parser.CommandHandler = func(command flags.Commander, args []string) error {
-		GlobalDebug = root.Debug
-
 		log.SetOutput(os.Stderr)
 
 		if root.Debug {
