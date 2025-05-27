@@ -8,6 +8,11 @@ builds:
       - linux
       - darwin
       - windows
+    ldflags:
+      - -s -w
+      - -X main.Version={{.Version}}
+      - -X main.Commit={{.Commit}}
+      - -X main.BuildDate={{.Date}}
 
 brews:
   - repository:
